@@ -10,6 +10,7 @@
 
 window.VIAGEM = {
 
+  ano: 2026,
   periodo: '25 out → 05 nov · 2026',
   viajantes: 'Letícia, Lívia, Leozinho, Pri, Leo, Lana, Tiago, Cynthia, Lurdinha e Pedrinho',
   totalViajantes: 10,
@@ -21,7 +22,8 @@ window.VIAGEM = {
 
   /* ---------- ONDE VAMOS FICAR ----------
      airbnb:   cole o link do anúncio entre as aspas
-     endereco: endereço ou nome do condomínio (vira o link do mapa da casa) */
+     endereco: endereço da casa (aparece na página e vira o link do mapa)
+     mapa:     opcional, coordenadas ou busca exata para o mapa (se vazio, usa o endereço) */
   cidades: [
     {
       k: 'bc', nome: 'Balneário Camboriú', arte: 'bc',
@@ -30,7 +32,8 @@ window.VIAGEM = {
       texto: 'Primeira base, chegando de Navegantes no domingo à noite. Praia urbana, bondinho e duas atrações novas para a criançada.',
       destaques: ['Aventura Jurássica + Oceanic Aquarium', 'Parque Unipraias e Praia de Laranjeiras', 'Passeio San Miguel e noite no Roddertown'],
       airbnb: '',
-      endereco: '',
+      endereco: 'Av. Atlântica, 2440, ap. 1001 – Edifício Aldebaran, Balneário Camboriú – SC, 88330-907',
+      mapa: 'Edifício Aldebaran, Avenida Atlântica, 2440, Balneário Camboriú - SC',
     },
     {
       k: 'po', nome: 'Pomerode', arte: 'po',
@@ -39,7 +42,8 @@ window.VIAGEM = {
       texto: 'A cidade mais alemã do Brasil. Casas enxaimel, cervejarias, zoológico e um bate-volta a Blumenau no domingo.',
       destaques: ['Vila Encantada, Alles Park e Zoo Pomerode', 'Rota do Enxaimel + Nugali Chocolates', 'Jantar de aniversário no sábado (31/10)', 'Blumenau: Vila Germânica e Caféhaus Glória'],
       airbnb: '',
-      endereco: '',
+      endereco: 'Testo Salto, Pomerode – SC (7R8H+32R)',
+      mapa: '-26.7347623,-49.1724865',
     },
     {
       k: 'pe', nome: 'Penha', arte: 'pe',
@@ -48,7 +52,7 @@ window.VIAGEM = {
       texto: 'Litoral de novo, agora para os dois dias inteiros de Beto Carrero World e frutos do mar. Volta pelo aeroporto de Navegantes.',
       destaques: ['Rota dos Frutos do Mar', 'Beto Carrero World (terça e quarta)', 'Voo NAV → REC na quinta, 17h20'],
       airbnb: '',
-      endereco: '',
+      endereco: 'Rua Valdomiro Bernardes, 392, Penha – SC, 88385-000',
     },
   ],
 

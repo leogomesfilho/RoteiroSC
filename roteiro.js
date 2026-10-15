@@ -63,7 +63,9 @@ const PIN='<svg class="pin" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 
 const HOUSE='<svg class="pin" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11 12 3l9 8v10h-6v-6H9v6H3z" fill="currentColor"/></svg>';
 
 /* ---------- blocos ---------- */
-function heroHTML(){
+function heroHTML(opts={}){
+  if(opts.compacto) return `<h1>Santa Catarina<span>Camboriú, Pomerode e Penha</span></h1>
+  <div class="hero-art">${ART.hero}</div>`;
   return `<div class="eyebrow">${esc(V.periodo)}</div>
   <h1>Santa Catarina<span>Camboriú, Pomerode e Penha</span></h1>
   <div class="hero-art">${ART.hero}</div>
@@ -82,9 +84,10 @@ function citiesHTML(opts={}){
     if(opts.hospedagem){
       const acts=[];
       if(c.airbnb) acts.push(`<a class="btn primary" href="${esc(c.airbnb)}" ${ext}>Ver no Airbnb ↗</a>`);
-      if(c.endereco) acts.push(`<a class="btn" href="${mapUrl(c.endereco)}" ${ext}>Ver no mapa ↗</a>`);
+      if(c.endereco) acts.push(`<a class="btn${c.airbnb?'':' primary'}" href="${mapUrl(c.mapa||c.endereco)}" ${ext}>Ver no mapa ↗</a>`);
       extra=`<div class="stay"><div><small>Entrada</small><b>${esc(c.entrada)}</b></div><div><small>Saída</small><b>${esc(c.saida)}</b></div><div><small>Noites</small><b>${esc(c.noites)}</b></div></div>
-      ${acts.length?`<div class="actions">${acts.join('')}</div>`:`<div class="pending">Link do Airbnb em breve.</div>`}`;
+      ${c.endereco?`<p class="addr">${esc(c.endereco)}</p>`:''}
+      ${acts.length?`<div class="actions">${acts.join('')}</div>`:''}${c.airbnb?'':`<div class="pending">Link do anúncio no Airbnb em breve.</div>`}`;
     }
     return `<article class="city c-${c.k}"><div class="art">${ART[c.arte]||''}</div><div class="body"><span class="when">${esc(c.quando)}</span><h3>${esc(c.nome)}</h3><p>${esc(c.texto)}</p>${extra}<ul>${c.destaques.map(h=>`<li>${esc(h)}</li>`).join('')}</ul></div></article>`;
   }).join('');
@@ -127,7 +130,7 @@ function mapsHTML(){
     if(g.casa){
       const c=cidade(g.casa);
       rows.push(c.endereco
-        ?`<li><a class="place house" href="${mapUrl(c.endereco)}" ${ext}>${HOUSE}<span class="nm"><b>Nossa casa</b><small>${esc(c.endereco)}</small></span><span class="go">Abrir ↗</span></a></li>`
+        ?`<li><a class="place house" href="${mapUrl(c.mapa||c.endereco)}" ${ext}>${HOUSE}<span class="nm"><b>Nossa casa</b><small>${esc(c.endereco)}</small></span><span class="go">Abrir ↗</span></a></li>`
         :`<li><div class="place house off">${HOUSE}<span class="nm"><b>Nossa casa</b><small>endereço em breve</small></span><span></span></div></li>`);
     }
     Object.entries(V.lugares).filter(([,l])=>l.grupo===g.k).forEach(([id,l])=>{
@@ -137,5 +140,26 @@ function mapsHTML(){
   }).join('');
 }
 
-window.Roteiro={ART,heroHTML,citiesHTML,stripHTML,daysHTML,mapsHTML};
+/* contagem regressiva e destaque do dia de hoje */
+function marcarHoje(box){
+  const ano=V.ano||2026;
+  const agora=window.HOJE_TESTE?new Date(window.HOJE_TESTE+'T12:00:00'):new Date();
+  const hoje=Date.UTC(agora.getFullYear(),agora.getMonth(),agora.getDate());
+  const dataDe=d=>Date.UTC(ano,+d.m-1,+d.d);
+  const ini=dataDe(V.dias[0]), DIA=864e5;
+  const faltam=Math.round((ini-hoje)/DIA);
+  if(faltam>0){
+    const voo=V.voos[0];
+    box.innerHTML=`<b>${faltam}</b><div><strong>${faltam===1?'dia para a viagem':'dias para a viagem'}</strong><small>${faltam===1?'É amanhã! ':''}Embarque ${esc(voo.info.split('·')[0].trim())} às ${esc((voo.info.split('·')[1]||'').split('→')[0].trim())}, ${esc(voo.de)} → ${esc(voo.para)}</small></div>`;
+    box.hidden=false;
+  } else box.hidden=true;
+  const d=V.dias.find(d=>dataDe(d)===hoje);
+  if(d){
+    const id=diaId(d);
+    document.querySelectorAll(`[data-dia="${id}"]`).forEach(c=>{c.classList.add('today');c.setAttribute('aria-current','date');c.querySelector('.wd').textContent='Hoje'});
+    const card=document.getElementById(id); if(card) card.classList.add('today');
+  }
+}
+
+window.Roteiro={ART,heroHTML,marcarHoje,citiesHTML,stripHTML,daysHTML,mapsHTML};
 })();

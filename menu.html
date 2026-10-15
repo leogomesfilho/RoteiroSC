@@ -13,9 +13,9 @@
 
   <!-- 1. OS 12 DIAS -->
   <div id="v-dias" data-view="dias">
-    <header class="hero" id="hero"></header>
-    <section>
-      <div class="sec-title"><span class="eyebrow">Toque num dia para ver os detalhes</span><h2>Os 12 dias</h2></div>
+    <header class="hero compact" id="hero"></header>
+    <div class="countdown" id="countdown" hidden></div>
+    <section class="cal">
       <nav class="strip" id="strip" aria-label="Dias da viagem"></nav>
       <div class="legend"><span><i style="background:var(--bc)"></i>Balneário Camboriú</span><span><i style="background:var(--po)"></i>Pomerode</span><span><i style="background:var(--pe)"></i>Penha</span></div>
     </section>
@@ -67,11 +67,12 @@
 <script src="roteiro.js"></script>
 <script>
 const R=window.Roteiro, V=window.VIAGEM, $=id=>document.getElementById(id);
-$('hero').innerHTML=R.heroHTML();
+$('hero').innerHTML=R.heroHTML({compacto:true});
 $('strip').innerHTML=R.stripHTML();
 $('days').innerHTML=R.daysHTML({mapas:true});
 $('cities').innerHTML=R.citiesHTML({hospedagem:true});
 $('maps').innerHTML=R.mapsHTML();
+R.marcarHoje($('countdown'));
 $('periodo2').textContent=$('periodo3').textContent=V.periodo;
 
 const TABS=['dias','casas','mapas'];

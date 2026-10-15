@@ -54,6 +54,17 @@ section{padding-block:22px}
 .sec-title{display:grid;gap:4px;margin-bottom:14px}
 .sec-title h2{font-size:28px;font-weight:700}
 
+/* capa compacta + contagem (menu) */
+.hero.compact{padding-block:4px 16px}
+.countdown{display:grid;grid-template-columns:auto 1fr;align-items:center;gap:14px;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:12px 16px}
+.countdown b{font-family:var(--display);font-size:44px;font-weight:800;line-height:1;font-variant-numeric:tabular-nums;color:var(--pe-ink)}
+.countdown strong{display:block;font-family:var(--display);font-size:19px;line-height:1.2}
+.countdown small{display:block;color:var(--muted);font-size:13px;margin-top:2px}
+.cal{padding-block:16px 22px}
+.chip.today{outline:3px solid var(--red);outline-offset:2px;box-shadow:0 0 0 6px color-mix(in srgb,var(--red) 18%,transparent)}
+.chip.today .wd{font-weight:700;color:var(--red)}
+.day.today{border:2px solid var(--red)}
+
 /* cidades */
 .cities{display:grid;gap:14px}
 .city{border-radius:16px;overflow:hidden;background:var(--surface);border:1px solid var(--line)}
@@ -76,6 +87,7 @@ section{padding-block:22px}
 .btn{display:inline-flex;align-items:center;gap:6px;font-weight:600;font-size:15px;text-decoration:none;padding:10px 14px;border-radius:12px;border:1px solid var(--line);background:var(--surface)}
 .btn.primary{border-color:transparent;color:var(--surface)}
 .c-bc .btn.primary{background:var(--bc-ink)} .c-po .btn.primary{background:var(--po-ink)} .c-pe .btn.primary{background:var(--pe-ink)}
+.city p.addr{color:var(--fg);font-size:15px;font-weight:500}
 .pending{font-size:14px;color:var(--muted);border:1px dashed var(--line);border-radius:12px;padding:10px 14px}
 
 /* faixa de dias */
