@@ -1,96 +1,43 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
-<title>Viagem SC 2026</title>
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Roteiro Santa Catarina 2026</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
 <link rel="stylesheet" href="estilo.css">
-<script>document.body.classList.add("app")</script>
+</head>
+<body>
 <div class="wrap" id="topo">
+  <header class="hero" id="hero"></header>
 
-  <!-- 1. OS 12 DIAS -->
-  <div id="v-dias" data-view="dias">
-    <header class="hero" id="hero"></header>
-    <section>
-      <div class="sec-title"><span class="eyebrow">Toque num dia para ver os detalhes</span><h2>Os 12 dias</h2></div>
-      <nav class="strip" id="strip" aria-label="Dias da viagem"></nav>
-      <div class="legend"><span><i style="background:var(--bc)"></i>Balneário Camboriú</span><span><i style="background:var(--po)"></i>Pomerode</span><span><i style="background:var(--pe)"></i>Penha</span></div>
-    </section>
-    <section>
-      <div class="sec-title"><span class="eyebrow">Detalhe</span><h2>Dia a dia</h2></div>
-      <div class="days" id="days"></div>
-    </section>
-  </div>
+  <section>
+    <div class="sec-title"><span class="eyebrow">Resumo</span><h2>Onde vamos ficar</h2></div>
+    <div class="cities" id="cities"></div>
+  </section>
 
-  <!-- 2. ONDE VAMOS FICAR -->
-  <div id="v-casas" data-view="casas" hidden>
-    <div class="topbar"><b>Santa Catarina 2026</b><span class="eyebrow" id="periodo2"></span></div>
-    <section>
-      <div class="sec-title"><span class="eyebrow">Hospedagem</span><h2>Onde vamos ficar</h2></div>
-      <div class="cities" id="cities"></div>
-    </section>
-  </div>
+  <section>
+    <div class="sec-title"><span class="eyebrow">Toque num dia para ver os detalhes</span><h2>Os 12 dias</h2></div>
+    <nav class="strip" id="strip" aria-label="Dias da viagem"></nav>
+    <div class="legend"><span><i style="background:var(--bc)"></i>Balneário Camboriú</span><span><i style="background:var(--po)"></i>Pomerode</span><span><i style="background:var(--pe)"></i>Penha</span></div>
+  </section>
 
-  <!-- 3. MAPAS -->
-  <div id="v-mapas" data-view="mapas" hidden>
-    <div class="topbar"><b>Santa Catarina 2026</b><span class="eyebrow" id="periodo3"></span></div>
-    <section>
-      <div class="sec-title"><span class="eyebrow">Toque para abrir no Google Maps</span><h2>Mapas</h2></div>
-      <p class="note">As casas e todos os lugares do roteiro, separados por cidade. Abaixo de cada nome, o dia em que vamos lá.</p>
-      <div class="mapgroups" id="maps"></div>
-    </section>
-  </div>
+  <section>
+    <div class="sec-title"><span class="eyebrow">Detalhe</span><h2>Dia a dia</h2></div>
+    <div class="days" id="days"></div>
+  </section>
 
+  <footer>Roteiro montado a partir da planilha da viagem. Horários de parques e passeios mudam com a temporada: confira nos links antes de sair.</footer>
 </div>
-
-<nav class="tabbar" aria-label="Menu">
-  <div class="in">
-    <button class="tab" type="button" data-tab="dias" id="tab-dias">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>
-      <span>12 dias</span>
-    </button>
-    <button class="tab" type="button" data-tab="casas" id="tab-casas">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M3 11 12 3l9 8M5 9.5V21h14V9.5"/><path d="M10 21v-6h4v6"/></svg>
-      <span>Onde ficar</span>
-    </button>
-    <button class="tab" type="button" data-tab="mapas" id="tab-mapas">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2-6-2zM9 4v14M15 6v14"/></svg>
-      <span>Mapas</span>
-    </button>
-  </div>
-</nav>
-
 <script src="dados.js"></script>
 <script src="roteiro.js"></script>
 <script>
-const R=window.Roteiro, V=window.VIAGEM, $=id=>document.getElementById(id);
+const R=window.Roteiro, $=id=>document.getElementById(id);
 $('hero').innerHTML=R.heroHTML();
+$('cities').innerHTML=R.citiesHTML();
 $('strip').innerHTML=R.stripHTML();
-$('days').innerHTML=R.daysHTML({mapas:true});
-$('cities').innerHTML=R.citiesHTML({hospedagem:true});
-$('maps').innerHTML=R.mapsHTML();
-$('periodo2').textContent=$('periodo3').textContent=V.periodo;
-
-const TABS=['dias','casas','mapas'];
-function show(tab,scroll){
-  if(!TABS.includes(tab)) tab='dias';
-  document.querySelectorAll('[data-view]').forEach(v=>v.hidden=v.dataset.view!==tab);
-  document.querySelectorAll('.tab').forEach(b=>b.dataset.tab===tab?b.setAttribute('aria-current','page'):b.removeAttribute('aria-current'));
-  try{localStorage.setItem('aba',tab)}catch(e){}
-  if(scroll) window.scrollTo(0,0);
-}
-document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>{
-  if(location.hash!=='#'+b.dataset.tab) history.replaceState(null,'','#'+b.dataset.tab);
-  show(b.dataset.tab,true);
-}));
-// dias e "voltar ao topo" rolam sem mexer no endereço
-document.addEventListener('click',e=>{
-  const chip=e.target.closest('[data-dia]');
-  if(chip){e.preventDefault();document.getElementById(chip.dataset.dia).scrollIntoView();return}
-  if(e.target.closest('[data-topo]')){e.preventDefault();window.scrollTo(0,0)}
-});
-window.addEventListener('hashchange',()=>show(location.hash.slice(1),true));
-let inicial=location.hash.slice(1);
-if(!TABS.includes(inicial)){try{inicial=localStorage.getItem('aba')||'dias'}catch(e){inicial='dias'}}
-show(inicial,false);
+$('days').innerHTML=R.daysHTML();
 </script>
-
-</body></html>
+</body>
+</html>
