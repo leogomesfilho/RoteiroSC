@@ -95,13 +95,13 @@ function citiesHTML(opts={}){
 
 const diaId=d=>`dia-${d.d}${d.m}`;
 function stripHTML(){
-  return V.dias.map(d=>`<a class="chip ${d.k}" href="#${diaId(d)}" data-dia="${diaId(d)}"><span class="wd">${esc(d.wd.slice(0,3))}</span><span class="dt">${d.d}/${d.m}</span><span class="tl">${esc(d.titulo)}</span></a>`).join('');
+  return V.dias.map(d=>`<a class="chip ${d.k}" href="#${diaId(d)}" data-dia="${diaId(d)}"><span class="wd">${esc(d.wd.slice(0,3))}</span><span class="dt">${d.d}/${d.m}</span><span class="tl">${esc(d.titulo)}</span><span class="wx-mini" data-wx="${diaId(d)}"></span></a>`).join('');
 }
 
 function daysHTML(opts={}){
   return V.dias.map(d=>`<article class="day ${d.k}" id="${diaId(d)}">
   <div class="day-head"><div class="stamp"><div><b>${d.d}</b><br><small>${d.m==='10'?'OUT':'NOV'}</small></div></div>
-  <div><div class="meta">${esc(d.wd)} · ${esc(cidade(d.k).nome)}</div><h3>${esc(d.titulo)}</h3></div></div>
+  <div><div class="meta">${esc(d.wd)} · ${esc(cidade(d.k).nome)}</div><h3>${esc(d.titulo)}</h3></div><div class="wx" data-wx="${diaId(d)}" hidden></div></div>
   <div class="art">${ART[d.arte]||''}</div>
   <ul class="tl-list">${d.horarios.map(s=>{
     if(!s.titulo) return `<li class="slot free"><span class="when">${esc(s.quando)}</span><div class="what"><h4>Livre</h4></div></li>`;
@@ -161,5 +161,45 @@ function marcarHoje(box){
   }
 }
 
-window.Roteiro={ART,heroHTML,marcarHoje,citiesHTML,stripHTML,daysHTML,mapsHTML};
+/* previsão do tempo (Open-Meteo: gratuita, sem chave). Só alcança 16 dias à frente;
+   dias mais distantes mostram "em breve". Se a busca falhar, a página fica como está. */
+const WMO=[[0,'☀️','Céu limpo'],[1,'🌤️','Poucas nuvens'],[2,'⛅','Parcialmente nublado'],[3,'☁️','Nublado'],[48,'🌫️','Neblina'],[57,'🌦️','Garoa'],[67,'🌧️','Chuva'],[77,'🌨️','Neve'],[82,'🌧️','Pancadas de chuva'],[86,'🌨️','Neve'],[99,'⛈️','Tempestade']];
+const wmo=c=>WMO.find(([n])=>c<=n)||WMO[WMO.length-1];
+async function clima(){
+  const ano=V.ano||2026, iso=d=>`${ano}-${d.m}-${d.d}`;
+  const local=d=>d.clima||cidade(d.k).clima;
+  const pontos=[...new Set(V.dias.map(local).filter(Boolean))];
+  if(!pontos.length) return;
+  const CHAVE='clima-v1', VALIDADE=3*36e5;
+  let dados;
+  try{const c=JSON.parse(localStorage.getItem(CHAVE));if(c&&c.pontos===pontos.join('|')&&Date.now()-c.t<VALIDADE)dados=c.dados}catch(e){}
+  if(!dados){
+    try{
+      const q=new URLSearchParams({latitude:pontos.map(p=>p.split(',')[0].trim()).join(','),longitude:pontos.map(p=>p.split(',')[1].trim()).join(','),
+        daily:'weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max',timezone:'America/Sao_Paulo',forecast_days:16});
+      const r=await fetch('https://api.open-meteo.com/v1/forecast?'+q);
+      if(!r.ok) return;
+      let j=await r.json(); if(!Array.isArray(j)) j=[j];
+      dados={};
+      j.forEach((res,i)=>{const t=res.daily;dados[pontos[i]]={};t.time.forEach((dia,k)=>{dados[pontos[i]][dia]=[t.weather_code[k],t.temperature_2m_max[k],t.temperature_2m_min[k],t.precipitation_probability_max[k]]})});
+      try{localStorage.setItem(CHAVE,JSON.stringify({t:Date.now(),pontos:pontos.join('|'),dados}))}catch(e){}
+    }catch(e){return}
+  }
+  const ultimo=Object.values(dados).flatMap(o=>Object.keys(o)).sort().pop();
+  const r0=n=>n==null?'–':Math.round(n);
+  V.dias.forEach(d=>{
+    const v=(dados[local(d)]||{})[iso(d)], id=diaId(d);
+    const box=document.querySelector(`.wx[data-wx="${id}"]`), mini=document.querySelectorAll(`.wx-mini[data-wx="${id}"]`);
+    if(v&&v[0]!=null){
+      const [ic,nome]=wmo(v[0]).slice(1);
+      const txt=`${nome}, máxima ${r0(v[1])}°, mínima ${r0(v[2])}°, chance de chuva ${r0(v[3])}%`;
+      if(box){box.innerHTML=`<span class="ic" aria-hidden="true">${ic}</span><span class="t"><b>${r0(v[1])}°</b> ${r0(v[2])}°</span><span class="rain">💧${r0(v[3])}%</span>`;box.title=txt;box.setAttribute('aria-label',txt);box.hidden=false}
+      mini.forEach(m=>{m.textContent=`${ic} ${r0(v[1])}°`;m.title=txt});
+    } else if(box&&ultimo&&iso(d)>ultimo){
+      box.innerHTML='<span class="soon">previsão<br>em breve</span>';box.removeAttribute('aria-label');box.hidden=false;
+    }
+  });
+}
+
+window.Roteiro={ART,heroHTML,marcarHoje,citiesHTML,stripHTML,daysHTML,mapsHTML,clima};
 })();

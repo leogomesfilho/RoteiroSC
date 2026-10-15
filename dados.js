@@ -23,7 +23,8 @@ window.VIAGEM = {
   /* ---------- ONDE VAMOS FICAR ----------
      airbnb:   cole o link do anúncio entre as aspas
      endereco: endereço da casa (aparece na página e vira o link do mapa)
-     mapa:     opcional, coordenadas ou busca exata para o mapa (se vazio, usa o endereço) */
+     mapa:     opcional, coordenadas ou busca exata para o mapa (se vazio, usa o endereço)
+     clima:    latitude,longitude usadas na previsão do tempo de cada dia */
   cidades: [
     {
       k: 'bc', nome: 'Balneário Camboriú', arte: 'bc',
@@ -34,6 +35,7 @@ window.VIAGEM = {
       airbnb: '',
       endereco: 'Av. Atlântica, 2440, ap. 1001 – Edifício Aldebaran, Balneário Camboriú – SC, 88330-907',
       mapa: 'Edifício Aldebaran, Avenida Atlântica, 2440, Balneário Camboriú - SC',
+      clima: '-26.9890,-48.6330',
     },
     {
       k: 'po', nome: 'Pomerode', arte: 'po',
@@ -44,6 +46,7 @@ window.VIAGEM = {
       airbnb: '',
       endereco: 'Testo Salto, Pomerode – SC (7R8H+32R)',
       mapa: '-26.7347623,-49.1724865',
+      clima: '-26.7348,-49.1725',
     },
     {
       k: 'pe', nome: 'Penha', arte: 'pe',
@@ -53,6 +56,7 @@ window.VIAGEM = {
       destaques: ['Rota dos Frutos do Mar', 'Beto Carrero World (terça e quarta)', 'Voo NAV → REC na quinta, 17h20'],
       airbnb: '',
       endereco: 'Rua Valdomiro Bernardes, 392, Penha – SC, 88385-000',
+      clima: '-26.7695,-48.6465',
     },
   ],
 
@@ -85,7 +89,8 @@ window.VIAGEM = {
 
   /* ---------- DIA A DIA ----------
      Um horário sem "titulo" aparece como "Livre".
-     lugar: código do lugar acima (ou lista: ['re','nu']) — gera os botões Site e Mapa */
+     lugar: código do lugar acima (ou lista: ['re','nu']) — gera os botões Site e Mapa
+     clima: opcional, latitude,longitude da previsão do dia (se vazio, usa a da cidade) */
   dias: [
     { d: '25', m: '10', wd: 'Domingo', k: 'bc', titulo: 'Chegada em SC', arte: 'd25', horarios: [
       { quando: 'Manhã' },
@@ -121,7 +126,7 @@ window.VIAGEM = {
       { quando: 'Dia todo', titulo: 'Rota do Enxaimel + Nugali Chocolates', texto: 'Estrada pelo Testo Alto com as casas enxaimel mais antigas da região. Parada na fábrica da Nugali, chocolate feito ali mesmo.', lugar: ['re', 'nu'] },
       { quando: 'Noite', titulo: 'Jantar de Aniversário', texto: 'Noite especial da viagem.' },
     ]},
-    { d: '01', m: '11', wd: 'Domingo', k: 'po', titulo: 'Bate-volta a Blumenau', arte: 'd01', horarios: [
+    { d: '01', m: '11', wd: 'Domingo', k: 'po', titulo: 'Bate-volta a Blumenau', arte: 'd01', clima: '-26.9194,-49.0661', horarios: [
       { quando: 'Manhã', titulo: 'Blumenau', texto: 'Cerca de 30 min de Pomerode. Centro histórico e Vila Germânica.', lugar: 'cb' },
       { quando: 'Tarde', titulo: 'Empório Vila Germânica + Caféhaus Glória', texto: 'Compras no parque da Oktoberfest e café colonial na confeitaria tradicional do Hotel Glória.', lugar: ['vg', 'cg'] },
       { quando: 'Noite', titulo: 'Jantar em casa', texto: 'Última noite em Pomerode.' },

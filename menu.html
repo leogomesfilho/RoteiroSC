@@ -70,6 +70,7 @@ const R=window.Roteiro, V=window.VIAGEM, $=id=>document.getElementById(id);
 $('hero').innerHTML=R.heroHTML({compacto:true});
 $('strip').innerHTML=R.stripHTML();
 $('days').innerHTML=R.daysHTML({mapas:true});
+R.clima();
 $('cities').innerHTML=R.citiesHTML({hospedagem:true});
 $('maps').innerHTML=R.mapsHTML();
 R.marcarHoje($('countdown'));
