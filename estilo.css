@@ -58,6 +58,7 @@ section{padding-block:22px}
 .hero.compact{padding-block:4px 16px}
 .countdown{display:grid;grid-template-columns:auto 1fr;align-items:center;gap:14px;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:12px 16px}
 .countdown b{font-family:var(--display);font-size:44px;font-weight:800;line-height:1;font-variant-numeric:tabular-nums;color:var(--pe-ink)}
+.countdown b span{display:block;font-size:13px;font-weight:700;line-height:1.2;text-align:center;color:var(--muted)}
 .countdown strong{display:block;font-family:var(--display);font-size:19px;line-height:1.2}
 .countdown small{display:block;color:var(--muted);font-size:13px;margin-top:2px}
 .cal{padding-block:16px 22px}
