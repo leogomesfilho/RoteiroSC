@@ -150,7 +150,7 @@ function marcarHoje(box){
   const faltam=Math.round((ini-hoje)/DIA);
   if(faltam>0){
     const voo=V.voos[0];
-    box.innerHTML=`<b>${faltam}</b><div><strong>${faltam===1?'dia para a viagem':'dias para a viagem'}</strong><small>${faltam===1?'É amanhã! ':''}Embarque ${esc(voo.info.split('·')[0].trim())} às ${esc((voo.info.split('·')[1]||'').split('→')[0].trim())}, ${esc(voo.de)} → ${esc(voo.para)}</small></div>`;
+    box.innerHTML=`<b><span>${faltam===1?'Falta':'Faltam'}</span>${faltam}</b><div><strong>${faltam===1?'dia para a viagem':'dias para a viagem'}</strong><small>${faltam===1?'É amanhã! ':''}Embarque ${esc(voo.info.split('·')[0].trim())} às ${esc((voo.info.split('·')[1]||'').split('→')[0].trim())}, ${esc(voo.de)} → ${esc(voo.para)}</small></div>`;
     box.hidden=false;
   } else box.hidden=true;
   const d=V.dias.find(d=>dataDe(d)===hoje);
