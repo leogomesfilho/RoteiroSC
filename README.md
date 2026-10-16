@@ -9,6 +9,7 @@ Site da viagem de 25/10 a 05/11/2026 (Balneário Camboriú, Pomerode e Penha).
 | `dados.js` | **Todos os textos e links. É o único arquivo que precisa ser editado.** |
 | `roteiro.js` | Ilustrações e montagem das páginas (não mexer) |
 | `estilo.css` | Visual das páginas (não mexer) |
+| `capa.jpg` | Imagem que aparece na prévia do link no WhatsApp |
 
 ## Como publicar no GitHub Pages
 
