@@ -57,6 +57,8 @@ O `endereco` faz a casa aparecer na aba **Mapas** e cria o botão **Ver no mapa*
 
 **Mudar o texto de uma atração** — procure o dia em `dias:` e altere o `texto: '...'`.
 
+**Previsão do tempo** — cada dia mostra ícone, máxima, mínima e chance de chuva, vindos da [Open-Meteo](https://open-meteo.com) (gratuita, sem cadastro). A previsão só alcança 16 dias à frente, então os dias mais distantes mostram "previsão em breve" até entrarem nessa janela. O local da previsão é o `clima:` (latitude,longitude) de cada cidade; um dia pode ter o seu próprio `clima:`, como o bate-volta a Blumenau.
+
 **Cuidados:** mantenha as aspas simples e as vírgulas no fim das linhas. Se o texto tiver apóstrofo, escreva `\'`.
 
 ## Se algo der errado

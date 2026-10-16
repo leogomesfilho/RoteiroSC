@@ -107,7 +107,14 @@ section{padding-block:22px}
 /* dias */
 .days{display:grid;gap:22px}
 .day{background:var(--surface);border:1px solid var(--line);border-radius:18px;overflow:hidden;scroll-margin-top:12px}
-.day-head{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:center;padding:14px 16px}
+.day-head{display:grid;grid-template-columns:auto 1fr auto;gap:14px;align-items:center;padding:14px 16px}
+.wx{display:grid;justify-items:center;gap:1px;min-width:58px;text-align:center;font-variant-numeric:tabular-nums;line-height:1.15}
+.wx .ic{font-size:26px;line-height:1}
+.wx .t{font-family:var(--mono);font-size:12px;color:var(--muted)}
+.wx .t b{color:var(--fg);font-weight:500}
+.wx .rain{font-family:var(--mono);font-size:11px;color:var(--pe-ink)}
+.wx .soon{font-family:var(--mono);font-size:10px;color:var(--muted)}
+.chip .wx-mini{font-family:var(--mono);font-size:11px;min-height:1.3em}
 .stamp{display:grid;place-items:center;width:62px;height:62px;border-radius:14px;color:#fff;text-align:center;line-height:1}
 .stamp b{font-family:var(--display);font-size:26px;font-variant-numeric:tabular-nums}
 .stamp small{font-family:var(--mono);font-size:10px;letter-spacing:.06em}
