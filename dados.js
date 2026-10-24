@@ -88,7 +88,7 @@ window.VIAGEM = {
     re:  { nome: 'Rota do Enxaimel', grupo: 'po', mapa: 'Rota do Enxaimel Testo Alto Pomerode' },
     nu:  { nome: 'Nugali Chocolates', grupo: 'po', mapa: 'Nugali Chocolates Pomerode' },
     rl:  { nome: 'Rancho Lemke Restaurante', grupo: 'po', mapa: 'Rancho Lemke Restaurante Pomerode' },
-    pp:  { nome: 'Passeio Pomerano', grupo: 'po', mapa: 'Passeio Pomerano Pomerode' },
+    pp:  { nome: 'Passeio Pomerano', grupo: 'po', mapa: 'Passeio Pomerano Pomerode', site: 'https://www.instagram.com/passeiopomerano/', siteNome: 'Instagram' },
     dc:  { nome: 'Dona Cecília', grupo: 'po', mapa: 'Dona Cecília Pomerode' },
     cb:  { nome: 'Centro de Blumenau', grupo: 'bl', mapa: 'Rua XV de Novembro Blumenau' },
     fg:  { nome: 'Restaurante Figueira', grupo: 'bl', mapa: 'Restaurante Figueira Blumenau' },
